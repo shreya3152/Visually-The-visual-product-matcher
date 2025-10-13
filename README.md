@@ -46,42 +46,54 @@
 Follow these steps to set up and run the **Visually** application locally:
 
 1. **Clone the repository:**
+   ```
    git clone https://github.com/shreya3152/Visually-The-visual-product-matcher.git
    cd Visually-The-visual-product-matcher
+   ```
 
 2. **Create and activate a virtual environment:**
-   Windows:
+   - Windows:
+   ```
    python -m venv venv
    venv\Scripts\activate
-
-   macOS/Linux:
+   ```
+   
+   - macOS/Linux:
+   ```
    python3 -m venv venv
    source venv/bin/activate
+   ```
 
 3. **Install the required dependencies:**
+   ```
    pip install -r requirements.txt
+   ```
 
 4. **Run the Flask application:**
+   ```
    python app.py
+   ```
 
 5. **Open your browser and visit:**
+   ```
    http://127.0.0.1:5000
+   ```
 
 ---
 ## Usage
 
--Use the Upload from Device tab to select an image from your computer.
--Use the Upload via URL tab to provide a direct link to an image online.
--Click Search to see the top similar products.
--Results show product name, category, price, and similarity score.
+- Use the Upload from Device tab to select an image from your computer.
+- Use the Upload via URL tab to provide a direct link to an image online.
+- Click Search to see the top similar products.
+- Results show product name, category, price, and similarity score.
 
 ---
 ## Contribution
 
--Contributions are welcome! You can help by:
--Adding more product categories.
--Improving feature extraction models.
--Enhancing UI/UX design.
+- Contributions are welcome! You can help by:
+- Adding more product categories.
+- Improving feature extraction models.
+- Enhancing UI/UX design.
 
 ---
 ## License
