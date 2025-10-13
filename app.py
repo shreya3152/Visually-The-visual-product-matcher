@@ -1,4 +1,3 @@
-# app.py
 
 import os
 import numpy as np
@@ -23,7 +22,7 @@ CATEGORY_THRESHOLDS = {
     'Watches': 0.60,
     'Glasses': 0.58
 }
-DEFAULT_THRESHOLD = 0.55  # fallback if category is unknown
+DEFAULT_THRESHOLD = 0.55  
 FEATURE_FOLDER = 'data'
 CSV_PATH = 'Database_Images/products.csv'
 
@@ -35,14 +34,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # ---------------- Load Dataset and Features ----------------
 df = pd.read_csv(CSV_PATH)
-
-# Ensure required columns exist
 required_columns = ['Name', 'Category', 'price', 'image_path']
 for col in required_columns:
     if col not in df.columns:
         raise ValueError(f"Column '{col}' missing in CSV!")
 
-# Load precomputed features
+
 feature_array = np.load(os.path.join(FEATURE_FOLDER, 'normalized_features.npy'))
 image_paths = np.load(os.path.join(FEATURE_FOLDER, 'image_paths.npy'))
 
@@ -55,7 +52,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def extract_features(img_path, model):
-    """Extract ResNet50 features from an image."""
     try:
         img = load_img(img_path, target_size=(224, 224))
         img_array = img_to_array(img)
@@ -68,7 +64,6 @@ def extract_features(img_path, model):
         return None
 
 def find_similar_images(uploaded_image_path, model, features, image_paths, top_k=TOP_K):
-    """Return top K similar images and their scores."""
     uploaded_features = extract_features(uploaded_image_path, model)
     if uploaded_features is None:
         return []
@@ -77,7 +72,6 @@ def find_similar_images(uploaded_image_path, model, features, image_paths, top_k
     return [(image_paths[i], similarities[i]) for i in top_indices]
 
 def download_image_from_url(url, save_folder):
-    """Download image from URL and save it locally."""
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -105,7 +99,6 @@ def upload_image():
     file = request.files.get('file')
     image_url = request.form.get('image_url')
 
-    # Save uploaded file or download URL
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -116,28 +109,23 @@ def upload_image():
             return "Failed to download image from URL.", 400
     else:
         return "No file or URL provided.", 400
-
-    # Find top similar images
     top_similar = find_similar_images(save_path, base_model, feature_array, image_paths, TOP_K)
 
-    # Normalize CSV image paths for comparison
     df['image_path'] = df['image_path'].str.replace("\\", "/").str.strip()
 
     results = []
     query_image_rel = os.path.relpath(save_path, 'static').replace("\\", "/")
 
-    # Category-aware threshold filtering
+
     for img_path, score in top_similar:
-        # Make img_path relative to static/ folder
         if os.path.isabs(img_path):
             rel_path = os.path.relpath(img_path, 'static').replace("\\", "/")
         else:
             rel_path = img_path.replace("\\", "/")
 
-        # Match CSV using cleaned path
+
         row = df[df['image_path'] == rel_path]
 
-        # Fallback: match by filename only if path fails
         if row.empty:
             filename_only = os.path.basename(rel_path)
             row = df[df['image_path'].str.endswith(filename_only)]
@@ -147,7 +135,6 @@ def upload_image():
             category = row['Category']
             threshold = CATEGORY_THRESHOLDS.get(category, DEFAULT_THRESHOLD)
 
-            # Only append if similarity passes the category threshold
             if score >= threshold:
                 results.append({
                     'name': row['Name'],
@@ -157,12 +144,10 @@ def upload_image():
                     'score': score
                 })
 
-    # Handle no match case
     no_match = False
     if not results:
         no_match = True
 
-    # Debug prints
     print("Query image:", query_image_rel)
     for r in results:
         print("Result image:", r['image_path'])
