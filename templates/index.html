@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Product Matcher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='Images/logo.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand app-brand" href="#">
+      <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo" class="navbar-logo">
+      <h3 class="app-title">Visually</h3> 
+    </a>
+
+    <div class="navbar-icons ms-auto">
+      <a href="https://github.com/shreya3152/Visually-The-visual-product-matcher" target="_blank" class="nav-link">
+        <i class="bi bi-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/shreya-sinha-042670170/" target="_blank" class="nav-link">
+        <i class="bi bi-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+    <!-- Header -->
+    <header class="app-header text-center mb-4">
+        <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Logo" class="app-logo mb-3">
+        <h3 class="top-label">Upload an image or provide a URL to discover similar products</h3>
+    </header>
+
+
+    <div class="container">
+       <!-- Upload Form Section -->
+<section class="upload-section mt-5 mb-5">
+  <div class="container">
+    <div class="upload-card mx-auto p-4">
+      <ul class="nav nav-pills justify-content-center mb-4 upload-nav" id="uploadTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="file-tab" data-bs-toggle="pill" data-bs-target="#file-pane" type="button" role="tab">Upload Image</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="url-tab" data-bs-toggle="pill" data-bs-target="#url-pane" type="button" role="tab">Enter Image URL</button>
+        </li>
+      </ul>
+
+      <div class="tab-content text-center" id="uploadTabsContent">
+        <!-- File Upload -->
+        <div class="tab-pane fade show active" id="file-pane" role="tabpanel">
+          <form id="uploadFormFile" method="POST" action="{{ url_for('upload_image') }}" enctype="multipart/form-data">
+            <i class="bi bi-cloud-arrow-up upload-icon"></i>
+            <h5 class="upload-title">Upload from your device</h5>
+            <input class="form-control glass-input mb-3 mt-3" type="file" id="file" name="file" accept="image/*">
+            <button type="submit" class="btn-glow w-100">Search</button>
+          </form>
+        </div>
+
+        <!-- URL Upload -->
+        <div class="tab-pane fade" id="url-pane" role="tabpanel">
+          <form id="uploadFormURL" method="POST" action="{{ url_for('upload_image') }}">
+            <i class="bi bi-link-45deg upload-icon"></i>
+            <h5 class="upload-title">Paste an Image URL</h5>
+            <input class="form-control glass-input mb-3 mt-3" type="text" id="image_url" name="image_url" placeholder="Enter image URL">
+            <button type="submit" class="btn-glow w-100">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        <!-- Query Image -->
+        {% if query_image %}
+        <div class="query-section text-center mb-4">
+            <h6 class="top-label">Query Image</h6>
+            <img src="{{ url_for('static', filename=query_image) }}" alt="Query Image" class="query-img">
+        </div>
+        {% endif %}
+
+
+
+
+        <!-- Similar Images -->
+        {% if results is defined and results|length > 0 %}
+        <div class="results">
+            <h6 class="top-label">Top Similar Products</h6>
+            <div class="row g-3">
+                {% for item in results %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="card result-card" data-price="{{ item['price'] }}">
+                        <img src="{{ url_for('static', filename=item['image_path']) }}" alt="{{ item['name'] }}"
+                            class="result-img">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                {{ item['name'] }}
+                                <span class="score-badge">{{ item['score'] | round(2) }}</span>
+                            </h6>
+                            <p class="card-text mb-0">Category: {{ item['Category'] }}</p>
+                            <p class="card-text">Price: ₹{{ item['price'] }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <!-- No Similar Result -->
+        {% if query_image and (results is not defined or results|length == 0) %}
+        <div class="text-center mt-5">
+            <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="No Result" class="no-result-logo">
+            <h4 style="color:#b497f3; font-weight:bold; margin-top:15px;">Oops! No similar result found.</h4>
+        </div>
+        {% endif %}
+
+
+        <div id="no-match-div" class="text-center mt-3" style="display:none;">
+            <h5>No products match this price range.</h5>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Technologies Used Section -->
+<section class="technologies-section mt-5 mb-5">
+  <div class="container">
+    <div class="tech-box mx-auto p-4">
+      <h4 class="tech-title">Technologies Used</h4>
+      <div class="tech-icons">
+        <div class="tech-item">
+          <i class="bi bi-filetype-py"></i>
+          <span>Python (Flask)</span>
+        </div>
+        <div class="tech-item">
+          <i class="bi bi-filetype-html"></i>
+          <span>HTML5</span>
+        </div>
+        <div class="tech-item">
+          <i class="bi bi-filetype-css"></i>
+          <span>CSS3 (Bootstrap 5)</span>
+        </div>
+        <div class="tech-item">
+          <i class="bi bi-database"></i>
+          <span>SQLite / CSV</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</body>
+
+<footer class="footer">
+    © 2025 Shreya Sinha. All rights reserved.
+</footer>
+
+<script>
+    document.getElementById('uploadTabsContent').addEventListener('submit', function (e) {
+        const fileInput = document.getElementById('file');
+        const urlInput = document.getElementById('image_url');
+
+        if (!fileInput.value && !urlInput.value) {
+            e.preventDefault(); // Stop form submission
+            alert("Please upload a file or enter an image URL!");
+        }
+    });
+</script>
+
+
+
+
+
+
+</html>

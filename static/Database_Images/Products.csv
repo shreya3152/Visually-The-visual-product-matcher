@@ -1,0 +1,52 @@
+Product_Id,Name,Category,image_path,price
+1,Green Shoe,Shoes,Database_Images/Shoes/Shoe1.jpg,3000
+2,Black Nike Shoe,Shoes,Database_Images/Shoes/Shoe2.jpg,5000
+3,Pastel Shoe,Shoes,Database_Images/Shoes/Shoe3.jpg,3999
+4,Plaided Pattern shoe,Shoes,Database_Images/Shoes/Shoe4.jpg,4999
+5,Brown Casual shoe,Shoes,Database_Images/Shoes/Shoe5.jpg,1299
+6,white and brown shoe,Shoes,Database_Images/Shoes/Shoe6.jpg,3000
+7,Black and White Nike,Shoes,Database_Images/Shoes/Shoe7.jpg,5000
+8,White Puma,Shoes,Database_Images/Shoes/Shoe8.jpg,3400
+9,Brown Shoe,Shoes,Database_Images/Shoes/Shoe9.jpg,5000
+10,Pink Lace Shoe,Shoes,Database_Images/Shoes/Shoe10.jpg,4500
+11,Brown Nike Shoe,Shoes,Database_Images/Shoes/Shoe11.jpg,5600
+12,White and Red Nike,Shoes,Database_Images/Shoes/Shoe12.jpg,4300
+13,Brown formal Shoe,Shoes,Database_Images/Shoes/Shoe13.jpg,3200
+14,Formal tan shoe,Shoes,Database_Images/Shoes/Shoe14.jpg,4500
+15,Slip on formal tan shoe,Shoes,Database_Images/Shoes/Shoe15.jpg,2000
+16,Orange Converse,Shoes,Database_Images/Shoes/Shoe16.jpg,5400
+17,Black and White Converse,Shoes,Database_Images/Shoes/Shoe17.jpg,4500
+18,Pink N Shoe,Shoes,Database_Images/Shoes/Shoe18.jpg,4300
+19,Women Tan Loafers,Shoes,Database_Images/Shoes/Shoe19.jpg,1500
+20, Beige Loafers,Shoes,Database_Images/Shoes/Shoe20.jpg,1200
+21,Tan Shoulder bag,Bags,Database_Images/Bags/Bag1.jpg,1000
+22,Dark brown duffle bag,Bags,Database_Images/Bags/Bag2.jpg,1200
+23,Black duffle bag,Bags,Database_Images/Bags/Bag5.jpg,1500
+24,Teal Handbag,Bags,Database_Images/Bags/Bag6.jpg,1000
+25,Black Sling bag,Bags,Database_Images/Bags/Bag7.jpg,999
+26,Gray Hand bag,Bags,Database_Images/Bags/Bag8.jpg,1200
+27,Orange Handbag,Bags,Database_Images/Bags/Bag9.jpg,1499
+28,Red Handbag,Bags,Database_Images/Bags/Bag10.jpg,1399
+29,Brown Tote Bag,Bags,Database_Images/Bags/Bag4.jpg,1299
+30,Brown fire Glasses,Glasses,Database_Images/Glasses/Glass1.jpg,1299
+31,Black Plain Shades,Glasses,Database_Images/Glasses/Glass2.jpg,999
+32,Black and silver shades,Glasses,Database_Images/Glasses/Glass3.jpg,887
+33,Brown RayBan ,Glasses,Database_Images/Glasses/Glass4.jpg,1599
+34,Pink Shades,Glasses,Database_Images/Glasses/Glass5.jpg,2999
+35,Black Cricle lens with fire frame,Glasses,Database_Images/Glasses/Glass6.jpg,1299
+36,Silver frame with black shades,Glasses,Database_Images/Glasses/Glass7.jpg,1199
+37,Rose Gold Frame,Glasses,Database_Images/Glasses/Glass8.jpg,2200
+38,Fire Cat Eye Frame,Glasses,Database_Images/Glasses/Glass9.jpg,1000
+39,Black RayBan,Glasses,Database_Images/Glasses/Glass10.jpg,1499
+40,Rose Gold with Black Belt,Watches,Database_Images/Watches/Watch1.jpg,1200
+41,Golden Body with Black Leather Belt,Watches,Database_Images/Watches/Watch2.jpg,1500
+42,Leather Brown Belt Rider,Watches,Database_Images/Watches/Watch3.jpg,2000
+43,Silver Body with tan belt,Watches,Database_Images/Watches/Watch4.jpg,3000
+44,Gold and Silver Rolex,Watches,Database_Images/Watches/Watch5.jpg,50000
+45,Gold and Brown Leather belt Rolex,Watches,Database_Images/Watches/Watch6.jpg,60000
+46,IWC  brown Belt,Watches,Database_Images/Watches/Watch7.jpg,4300
+47,Black Omega,Watches,Database_Images/Watches/Watch8.jpg,6500
+48,Black and wood Mamba,Watches,Database_Images/Watches/Watch9.jpg,4899
+49,Silver Omega,Watches,Database_Images/Watches/Watch10.jpg,12000
+50,Black Helex,Watches,Database_Images/Watches/Watch11.jpg,1500
+51,Emerald Michael Kors,Watches,Database_Images/Watches/Watch12.jpg,45000
