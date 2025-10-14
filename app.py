@@ -12,7 +12,7 @@ import heapq
 import requests
 from io import BytesIO
 
-# ---------------- Configuration ----------------
+
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 TOP_K = 5
@@ -24,15 +24,14 @@ CATEGORY_THRESHOLDS = {
 }
 DEFAULT_THRESHOLD = 0.55  
 FEATURE_FOLDER = 'data'
-CSV_PATH = 'Database_Images/products.csv'
+CSV_PATH = 'Database_Images/Products.csv'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# ---------------- Flask App ----------------
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# ---------------- Load Dataset and Features ----------------
+
 df = pd.read_csv(CSV_PATH)
 required_columns = ['Name', 'Category', 'price', 'image_path']
 for col in required_columns:
@@ -43,11 +42,10 @@ for col in required_columns:
 feature_array = np.load(os.path.join(FEATURE_FOLDER, 'normalized_features.npy'))
 image_paths = np.load(os.path.join(FEATURE_FOLDER, 'image_paths.npy'))
 
-# ---------------- Load ResNet50 Model ----------------
+
 base_model = ResNet50(weights='imagenet', include_top=False, pooling='avg')
 print("ResNet50 model loaded.")
 
-# ---------------- Utility Functions ----------------
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -77,7 +75,7 @@ def download_image_from_url(url, save_folder):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
         }
         response = requests.get(url, headers=headers, stream=True, timeout=10)
-        response.raise_for_status()  # Raise error if status is not 200
+        response.raise_for_status()  
         img = Image.open(BytesIO(response.content)).convert("RGB")
         filename = secure_filename(url.split("/")[-1])
         if filename == '':
@@ -89,7 +87,6 @@ def download_image_from_url(url, save_folder):
         print(f"Error downloading image: {e}")
         return None
 
-# ---------------- Routes ----------------
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -116,13 +113,11 @@ def upload_image():
     results = []
     query_image_rel = os.path.relpath(save_path, 'static').replace("\\", "/")
 
-
     for img_path, score in top_similar:
         if os.path.isabs(img_path):
             rel_path = os.path.relpath(img_path, 'static').replace("\\", "/")
         else:
             rel_path = img_path.replace("\\", "/")
-
 
         row = df[df['image_path'] == rel_path]
 
@@ -156,4 +151,5 @@ def upload_image():
 
 # ---------------- Run App ----------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
