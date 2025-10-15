@@ -24,7 +24,7 @@
 ---
 
 ## Demo
-
+The output of the file is diplayed separately in the output folder.
 
 
 
